@@ -11,11 +11,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.lifecycle.ViewModelProvider;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,34 +33,25 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        topStoriesList.add(new NewsItem(0,"Sport game",R.drawable.soccerball,"Yes","Basketball",false));
-        topStoriesList.add(new NewsItem(0,"Sport game",R.drawable.soccerball,"Yes","Basketball",false));
-        topStoriesList.add(new NewsItem(0,"Sport game",R.drawable.soccerball,"Yes","Basketball",false));
+        NewsViewModel viewModel = new ViewModelProvider(this).get(NewsViewModel.class);
 
-        regularStoriesList.add(new NewsItem(0,"Sport game",R.drawable.soccerball,"Yes","Basketball",false));
-        regularStoriesList.add(new NewsItem(0,"Sport game",R.drawable.soccerball,"Yes","Basketball",false));
-        regularStoriesList.add(new NewsItem(0,"Sport game",R.drawable.soccerball,"Yes","Basketball",false));
-        regularStoriesList.add(new NewsItem(0,"Sport game",R.drawable.soccerball,"Yes","Basketball",false));
-        regularStoriesList.add(new NewsItem(0,"Sport game",R.drawable.soccerball,"Yes","Basketball",false));
-        regularStoriesList.add(new NewsItem(0,"Sport game",R.drawable.soccerball,"Yes","Basketball",false));
+        viewModel.getTopStories().add(new NewsItem(0,"Sport game",R.drawable.soccerball,"Yes","Basketball",false));
+        viewModel.getTopStories().add(new NewsItem(0,"Sport game",R.drawable.soccerball,"Yes","Basketball",false));
+        viewModel.getTopStories().add(new NewsItem(0,"Sport game",R.drawable.soccerball,"Yes","Basketball",false));
+        viewModel.getRegularStories().add(new NewsItem(0,"Sport game",R.drawable.soccerball,"Yes","Basketball",false));
+        viewModel.getRegularStories().add(new NewsItem(0,"Sport game",R.drawable.soccerball,"Yes","Basketball",false));
+        viewModel.getRegularStories().add(new NewsItem(0,"Sport game",R.drawable.soccerball,"Yes","Basketball",false));
+
         //String[] titleList = {"Sport game", "Sporty game","Unsporty game"};
         //int[] imageList = {R.drawable.soccerball,R.drawable.soccerball,R.drawable.soccerball};
 
-        RecyclerViewAdapter topStoriesRecyclerViewAdatper;
-        RecyclerView topStoriesRecyclerView;
-        topStoriesRecyclerView = findViewById(R.id.topStoriesRecyclerView);
-        topStoriesRecyclerViewAdatper = new RecyclerViewAdapter(topStoriesList, this);
-        topStoriesRecyclerView.setAdapter(topStoriesRecyclerViewAdatper);
-        topStoriesRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        Fragment fragment = new ViewArticles();
 
-
-        RecyclerViewAdapter regularStoriesRecyclerViewAdatper;
-        RecyclerView regularStoriesRecyclerView;
-        regularStoriesRecyclerView = findViewById(R.id.regularStoriesRecyclerView);
-        regularStoriesRecyclerViewAdatper = new RecyclerViewAdapter(regularStoriesList, this);
-        regularStoriesRecyclerView.setAdapter(regularStoriesRecyclerViewAdatper);
-        regularStoriesRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragmentContainerView, fragment)
+                .addToBackStack(null)
+                .commit();
 
 
         /*
@@ -75,14 +62,13 @@ public class MainActivity extends AppCompatActivity {
         }*/
     }
     public void selectFragment(View view) {
-        Fragment fragment;
-        if (view.getId() == R.id.button5)
-                fragment = new DetailFragment();
-        else
-                fragment = new TestFragment();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragmentContainerView, fragment).addToBackStack(null).commit();
+        Fragment fragment = new ViewArticles();
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragmentContainerView, fragment)
+                .addToBackStack(null)
+                .commit();
     }
 
 

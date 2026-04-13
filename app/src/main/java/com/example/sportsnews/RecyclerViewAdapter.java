@@ -8,6 +8,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -35,6 +37,19 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void onBindViewHolder(@NonNull RecyclerViewAdapter.ViewHolder holder, int position) {
         holder.titleTextView.setText(newsList.get(position).GetTitle());
         holder.imageView.setImageResource(newsList.get(position).GetImage());
+        holder.imageView.setOnClickListener(v -> {
+            NewsViewModel viewModel = new ViewModelProvider((AppCompatActivity) context)
+                    .get(NewsViewModel.class);
+
+            viewModel.setSelectedArticle(newsList.get(position));
+
+            ((AppCompatActivity) context).getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragmentContainerView, new DetailFragment())
+                    .addToBackStack(null)
+                    .commit();
+        });
+
     }
 
     @Override
