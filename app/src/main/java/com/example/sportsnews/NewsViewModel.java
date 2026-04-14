@@ -1,18 +1,16 @@
 package com.example.sportsnews;
 
 import androidx.lifecycle.ViewModel;
-
-import com.example.sportsnews.NewsItem;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class NewsViewModel extends ViewModel {
-
-    private final List<NewsItem> topStories = new ArrayList<>();
-    private final List<NewsItem> regularStories = new ArrayList<>();
+    //Create a view model to store the stories across fragments
+    //Stores the top stories, regular stories, and currently selected article
+    private List<NewsItem> topStories = new ArrayList<>();
+    private List<NewsItem> regularStories = new ArrayList<>();
     private NewsItem selectedArticle;
-
+    //Create methods for accessing news articles and also updating the bookmark
     public List<NewsItem> getTopStories() {
         return topStories;
     }
@@ -30,8 +28,6 @@ public class NewsViewModel extends ViewModel {
     }
 
     public void toggleBookmarkSelected() {
-        if (selectedArticle != null) {
-            selectedArticle.ToggleBookMarked();
-        }
+        selectedArticle.ToggleBookMarked();
     }
 }

@@ -1,26 +1,15 @@
 package com.example.sportsnews;
 
-import static androidx.core.content.ContentProviderCompat.requireContext;
-
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class MainActivity extends AppCompatActivity {
-    List<NewsItem> topStoriesList = new ArrayList<>();
-    List<NewsItem> regularStoriesList = new ArrayList<>();
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,43 +22,20 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
+        //Create a viewmodel to store the news articles across the fragments and everything
         NewsViewModel viewModel = new ViewModelProvider(this).get(NewsViewModel.class);
 
-        viewModel.getTopStories().add(new NewsItem(0,"Sport game",R.drawable.soccerball,"Yes","Basketball",false));
-        viewModel.getTopStories().add(new NewsItem(0,"Sport game",R.drawable.soccerball,"Yes","Basketball",false));
-        viewModel.getTopStories().add(new NewsItem(0,"Sport game",R.drawable.soccerball,"Yes","Basketball",false));
-        viewModel.getRegularStories().add(new NewsItem(0,"Sport game",R.drawable.soccerball,"Yes","Basketball",false));
-        viewModel.getRegularStories().add(new NewsItem(0,"Sport game",R.drawable.soccerball,"Yes","Basketball",false));
-        viewModel.getRegularStories().add(new NewsItem(0,"Sport game",R.drawable.soccerball,"Yes","Basketball",false));
+        //Add the stories to the view model
+        viewModel.getTopStories().add(new NewsItem(0,"New Soccer Game",R.drawable.soccerball,"A new type of soccer game is taking the world by storm!","soccer",false));
+        viewModel.getTopStories().add(new NewsItem(0,"Football trending",R.drawable.football,"Football is trending with the youths these days!","football",false));
+        viewModel.getTopStories().add(new NewsItem(0,"Cricket is boring!",R.drawable.cricket,"Cricket... Is still boring!","cricket",false));
+        viewModel.getRegularStories().add(new NewsItem(0,"Soccer to replace football",R.drawable.soccerball,"Soccer is set to replace football in some languages","soccer",false));
+        viewModel.getRegularStories().add(new NewsItem(0,"New soccer balls",R.drawable.soccerball,"A local soccer team is going to get new soccerballs made out of pentagons and hexagons.","soccer",false));
+        viewModel.getRegularStories().add(new NewsItem(0,"Cricket second to watching paint dry",R.drawable.cricket,"Yep. Cricket is more boring than watching paint dry.","cricket",false));
+        viewModel.getRegularStories().add(new NewsItem(0,"New football rules",R.drawable.football,"New football rules make the game more like soccer.","football",false));
+        viewModel.getRegularStories().add(new NewsItem(0,"200 year cricket game",R.drawable.cricket,"The most exciting thing that happened was the grass grew longer!","cricket",false));
 
-        //String[] titleList = {"Sport game", "Sporty game","Unsporty game"};
-        //int[] imageList = {R.drawable.soccerball,R.drawable.soccerball,R.drawable.soccerball};
-
-        Fragment fragment = new ViewArticles();
-
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragmentContainerView, fragment)
-                .addToBackStack(null)
-                .commit();
-
-
-        /*
-        for (int i=0; i<titleList.length;i++)
-        {
-            NewsItem newsItem = new NewsItem(i,titleList[i],imageList[i]);
-            newsList.add(newsItem);
-        }*/
+        //Set the first fragment to be the view articles fragment by default
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView, new ViewArticlesFragment()).commit();
     }
-    public void selectFragment(View view) {
-        Fragment fragment = new ViewArticles();
-
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragmentContainerView, fragment)
-                .addToBackStack(null)
-                .commit();
-    }
-
-
 }

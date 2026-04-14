@@ -1,6 +1,8 @@
 package com.example.sportsnews;
 
 public class NewsItem {
+    //Create the class for a news item
+    //Create fields for an id, title, image, description, category, and whether or not the article is bookmarked or not.
     private int id;
     private String title;
     private int image;
@@ -17,6 +19,7 @@ public class NewsItem {
         this.bookmarked = bookmarked;
     }
 
+    //Methods for getting data about the news article
     public void ToggleBookMarked()
     {
         bookmarked = !bookmarked;
@@ -45,4 +48,5 @@ public class NewsItem {
     {
         return id;
     }
+
 }
