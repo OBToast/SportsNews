@@ -1,0 +1,2 @@
+My submission for task 5.1C SIT305.
+This app utilises a shared view holder to store news articles across fragments, making use of a single activity design. It has fragments for viewing the large list of articles and a fragment for a detailed article description. It makes extensive use of recycler views to display articles efficently. It also has options for filtering articles by category by changing the list of articles supplied to the recycler, including the ability to save and bookmark articles for later.
